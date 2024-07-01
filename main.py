@@ -1,5 +1,5 @@
-# SPDX-FileCopyrightText: 2021 ladyada for Adafruit Industries
-# SPDX-License-Identifier: MIT
+# (c) 2024 Douglas Gaff
+# All Rights Reserved
 
 import time
 import board
