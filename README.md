@@ -12,11 +12,7 @@ I don't remember what possessed me to take up this project. I think I saw those 
 
 So how's it work? Just press the lighted button next to each number and the display will go through single (one slash), double (two slashes), and triple (circle) scoring. When you clear a particular number, that number's button LED will turn off. When one player clears all of the numbers, the reset button does a little animation. And there's a fun startup sequence when you power up or reset the game. I mean, if I'm going to use so many fancy chips, I might as well do something fun, right? Here's a video.
 
-[![Scoreboard operation](https://img.youtube.com/vi/8tmYxu2OSdY/0.jpg)](https://www.youtube.com/watch?v=8tmYxu2OSdY)
-
-https://github.com/dgaff/dart_scoreboard/blob/0974c0d0b9ee7dde9a4c4ec2cea2263636bc07af/images/IMG_9347.mov
-
-https://github.com/dgaff/onkyo-control/blob/24a893795c12a20c2e161ccf8fb1e8f2691f8f46/images/IMG_8057.mp4
+https://github.com/dgaff/dart_scoreboard/assets/1971008/4cacc433-6791-4b03-ad2a-5dbcd5b7c47d
 
 ## Parts List
 
