@@ -14,7 +14,9 @@ So how's it work? Just press the lighted button next to each number and the disp
 
 [![Scoreboard operation](https://img.youtube.com/vi/8tmYxu2OSdY/0.jpg)](https://www.youtube.com/watch?v=8tmYxu2OSdY)
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/8tmYxu2OSdY?si=m2dwA7wXPgMFcGiB" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+https://github.com/dgaff/dart_scoreboard/blob/0974c0d0b9ee7dde9a4c4ec2cea2263636bc07af/images/IMG_9347.mov
+
+https://github.com/dgaff/onkyo-control/blob/24a893795c12a20c2e161ccf8fb1e8f2691f8f46/images/IMG_8057.mp4
 
 ## Parts List
 
