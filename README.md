@@ -33,13 +33,41 @@ This project was built with a lot of overkill components, and the total price ta
 * Misc fasteners
 * Lots of connector wire, some resistors, and 2 usb-micro pigtails
 
-## Build Steps
+## Overview
 
 The scoreboard is divided into two halves, with each half controlled by its own separate circuit. Each circuit contains an [Itsy-Bitsy M4](https://www.adafruit.com/product/3800) microprocessor, 7 [8x8 LED boards](https://www.adafruit.com/product/1079), 7 [MAX7219](https://www.adafruit.com/product/453) LED controllers, 7 [lighted push buttons](https://www.adafruit.com/product/1479), and a [TLC59711](https://www.adafruit.com/product/1455) LED controller.
 
 Each scoring number on the scoreboard has its own 8x8 LED display controlled by a MAX7219 and a lighted pushbutton. The 7 LEDs in the push buttons are lit using the TLC59711 controller rather than directly from the microprocessor. This reduces current consumption and allows for dimming effects on the push buttons. I could have added a couple of chips to keep this to a single processor design, but I didn't. As it is, I use most of the IO pins on the Itsy-Bitsy M4.
 
 There's also a reset button in the center that resets the game. This button triggers a reset on both processor boards. However, only the right processor board controls the reset button's LED, which has an animation effect when someone wins. So, the two separate processor boards have TTL serial between them. This is just used by the left processor board to tell the right processor board if the left side won. This will allow the right board to start the reset button animation. The code is written so that the exact same code runs on each board, though.
+
+## Pin Mappings and Partial Schematic
+
+Here are the pin mappings for each of the two Itsy-Bitsy M4 processors. The two processors share power and ground from a single external USB jack on the housing. The only other interconnect between the two processors is the TX and RX lines between them and a shared game reset trigger input on A5.
+
+* SCK, MOSI = SPI bus
+* D0, D1, D2, D3, D4, D5, D7 = chip select for MAX controllers (for 8x8 matrices)
+* D9, D10, D11, D12, D13, A2, A3 = button inputs
+* R0, G0, B0, R1, G1, B1, R2 = game button LED outputs
+* G2 = reset button LED output
+* A5 = game reset input
+* A0, A1 = TX and RX for processor board interconnect
+
+MAX7219 Rset = 20 k&Omega;. I did not change the built-in current limiting resistor on the 59711.
+
+Here's a partial schematic that shows the wiring for one of the 8x8 matrices and its corresponding push button. The 8x8 MAX driver, 8x8 display, and LED pushbutton parts of the circuit are repeated another 6 times. I've labeled the other pins to indicate this. The TX and RX pins are connected to the other processor board (TX->RX and RX->TX of course).
+
+<img src="images/dart_scoreboard_schematic.png">
+
+## Prototyping
+
+Before I got too deep into this project, I did some breadboard prototyping to learn how to drive the displays. The MAX7219 controller can be driven by SPI, and each MAX needs a CS line. I had to install the display boards in a certain orientation to get the PCB boards to fit, but the CircuitPython libraries support rotation of the images.
+
+<img src="images/IMG_7897.jpeg" width="400">
+
+I used the same SPI bus for both the 59711 button LED controller and the MAX7219 8x8 display controllers, as you can see on the schematic above. The 59711 doesn't have a CS like each of the MAX7219's do. But looking at the datasheets and running some tests on the logic analyzer, I decided it wasn't possible to send a bit stream to the MAX7219 controller that would mimic the 59711 bit stream (0x25 write command + 218 bits of data). So I just wired the MOSI and CLK lines to all of the MAX7219 and 59711 controllers.
+
+## Build Steps
 
 ### Cutting out the dry erase board
 
@@ -56,16 +84,6 @@ I started with a [dry erase scoreboard](https://www.amazon.com/gp/product/B001E5
 Use the punch carefully! It took some work to cleanly cut each square. The holes for the push buttons were drilled out with a spade bit. I epoxied each display to keep them in place.
 
 <img src="images/IMG_8183.jpeg" width="400">
-
-### Prototyping
-
-The MAX7219 controller can be driven by SPI, and each MAX needs a CS line. I had to install the display boards in a certain orientation to get the PCB boards to fit, but the CircuitPython libraries support rotation of the images.
-
-<img src="images/IMG_7897.jpeg" width="400">
-
-I used the same SPI bus for both the 59711 button LED controller and the MAX7219 8x8 display controllers. The 59711 doesn't have a CS
-like each of the MAX7219's do. But looking at the datasheets and running some tests on the logic analyzer, I decided it wasn't possible to send a bit
-stream to the MAX7219 controller that would mimic the 59711 bit stream (0x25 write command + 218 bits of data). So I just wired the MOSI and CLK lines to all of the MAX7219 and 59711 controllers.
 
 ### Circuit Boards
 
@@ -99,24 +117,6 @@ That said, this bed-of-nails setup didn't work that great. The pogo pins didn't 
 
 <img src="images/IMG_8333.jpeg" width="400">
 
-### Pin Mappings and Partial Schematic
-
-Here are the M4 pin mappings
-
-* SCK, MOSI = SPI bus
-* D0, D1, D2, D3, D4, D5, D7 = chip select for MAX controllers (for 8x8 matrices)
-* D9, D10, D11, D12, D13, A2, A3 = button inputs
-* R0, G0, B0, R1, G1, B1, R2 = game button LED outputs
-* G2 = reset button LED output
-* A5 = game reset input
-* A0, A1 = TX and RX for processor board interconnect
-
-MAX7219 Rset = 20 k&Omega;. I did not change the built-in current limiting resistor on the 59711.
-
-Here a partial schematic that shows the wiring for one of the 8x8 matrices and its corresponding push button. The 8x8 MAX driver, 8x8 display, and LED pushbutton parts of the circuit are repeated another 6 times. I've labeled the other pins to indicate this. The TX and RX pins are connected to the other processor board (TX->RX and RX->TX of course).
-
-<img src="images/dart_scoreboard_schematic.png">
-
 ### Even more soldering...
 
 As you can see from the picture, there was a ton of wiring and soldering to connect the display daughter board to the MAX controller chips.
@@ -133,7 +133,7 @@ Look at this monstrosity when everything is wired up on one side! It looks like 
 
 As noted, to mass produce this, I would build one large circuit board that held the displays, push buttons, and remaining circuitry. I would also use discrete LEDs for the 8x8 matrix instead of the Luckylight modules from Adafruit. They are quite pricey. The MAX controller chips are expensive too, but I suspect the price drops quite a bit in large quantities.
 
-### The housing
+### Building the housing
 
 I bought some 1/4 inch thick MDF to build the housing for the scoreboard. Here's the frame of the box getting glued together. 1/4 MDF is a little small for nails.
 
