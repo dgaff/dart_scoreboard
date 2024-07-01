@@ -14,6 +14,8 @@ So how's it work? Just press the lighted button next to each number and the disp
 
 [![Scoreboard operation](https://img.youtube.com/vi/8tmYxu2OSdY/0.jpg)](https://www.youtube.com/watch?v=8tmYxu2OSdY)
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/8tmYxu2OSdY?si=m2dwA7wXPgMFcGiB" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
 ## Parts List
 
 This project was built with a lot of overkill components, and the total price tag was over $400 in parts. At mass production pricing, this might get under $100 in BOM cost, but it would still be pricey.
