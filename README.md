@@ -23,7 +23,7 @@ This project was built with a lot of overkill components, and the total price ta
 * 15 [LED-lit momentary SPST pushbutton switches](https://www.adafruit.com/product/1479) - $30
 * 2 [Adafruit Itsy-Bitsy M4](https://www.adafruit.com/product/3800) boards - $30
 * 14 [Adafruit MAX 7219 matrix LED controllers](https://www.adafruit.com/product/453) - $182
-* 2 [Adafruit TLC 5911 RGB controller](https://www.adafruit.com/product/1455) - $15
+* 2 [Adafruit TLC 59711 RGB controller](https://www.adafruit.com/product/1455) - $15
 * 2 [protoboards](https://www.amazon.com/gp/product/B091PZQ4W7) 7cm x 9cm - $2
 * 7 [mini protoboards](https://www.amazon.com/gp/product/B081MSKJJX) (cut in half to make 14) - $10
 * 1 SPST toggle switch
@@ -77,7 +77,7 @@ On the top side of the board, I wired: power, ground, chip select, SCK (SPI cloc
 
 <img src="images/IMG_9317.jpeg" width="400">
 
-I soldered the M4 in place at a later stage in the process, because it was easier to wire up all of the IO lines without the M4 daughter board in place. I also soldered up the 5911 controller later in the process for the same reason. The push button LED lines are much easier to solder in when the daughter board is out of the way. But this is what is looks like with the daughter boards in place. NOTE: I used solid copper wire for the top board in order to keep everything in place and mostly out of the way for the time when I would wire up the displays.
+I soldered the M4 in place at a later stage in the process, because it was easier to wire up all of the IO lines without the M4 daughter board in place. I also soldered up the 59711 controller later in the process for the same reason. The push button LED lines are much easier to solder in when the daughter board is out of the way. But this is what is looks like with the daughter boards in place. NOTE: I used solid copper wire for the top board in order to keep everything in place and mostly out of the way for the time when I would wire up the displays.
 
 <img src="images/IMG_9319.jpeg" width="400">
 
@@ -113,9 +113,9 @@ Here are the M4 pin mappings
 
 MAX7219 Rset = 20 k&Omega;. I did not change the built-in current limiting resistor on the 59711.
 
-Here a partial schematic that shows the wiring for one of the 8x8 matrices and its corresponding push button. I've also labeled the other processor pins.
+Here a partial schematic that shows the wiring for one of the 8x8 matrices and its corresponding push button. The 8x8 MAX driver, 8x8 display, and LED pushbutton parts of the circuit are repeated another 6 times. I've labeled the other pins to indicate this. The TX and RX pins are connected to the other processor board (TX->RX and RX->TX of course).
 
-(TODO partial schematic)
+<img src="images/dart_scoreboard_schematic.png">
 
 ### Even more soldering...
 
